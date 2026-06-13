@@ -36,6 +36,7 @@
    ```env
    NEXT_PUBLIC_SUPABASE_URL=ваша_ссылка
    NEXT_PUBLIC_SUPABASE_ANON_KEY=ваш_ключ
+   NEXT_PUBLIC_GEMINI_API_KEY=ваш_ключ_gemini
    ```
 4. Выполните SQL-скрипт из `supabase/schema.sql` в вашем проекте Supabase.
 5. Запустите сервер:
