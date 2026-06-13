@@ -1,26 +1,148 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  --color-background: #020617;
+  --color-foreground: #F8FAFC;
+
+  --color-primary: #0F172A;
+  --color-secondary: #1E293B;
+  --color-accent: #22C55E;
+
+  --font-sans: var(--font-fira-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-fira-code), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* ===== LEAFLET ===== */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Custom dark popup */
+.leaflet-popup-content-wrapper {
+  background: #0f172a !important;
+  border: 1px solid rgba(30, 41, 59, 0.8) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.1), 0 8px 32px rgba(0,0,0,0.6) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+}
+
+.leaflet-popup-tip {
+  background: #0f172a !important;
+}
+
+.leaflet-popup-close-button {
+  color: rgba(248, 250, 252, 0.5) !important;
+  font-size: 18px !important;
+  padding: 4px 8px !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: white !important;
+}
+
+/* Marker cluster styles */
+.marker-cluster-small { background-color: rgba(34, 197, 94, 0.2); }
+.marker-cluster-small div { background-color: rgba(34, 197, 94, 0.6); color: white; font-weight: bold; }
+.marker-cluster-medium { background-color: rgba(234, 179, 8, 0.2); }
+.marker-cluster-medium div { background-color: rgba(234, 179, 8, 0.6); color: white; font-weight: bold; }
+.marker-cluster-large { background-color: rgba(239, 68, 68, 0.2); }
+.marker-cluster-large div { background-color: rgba(239, 68, 68, 0.6); color: white; font-weight: bold; }
+.marker-cluster { border-radius: 50%; }
+.marker-cluster div { border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+
+/* ===== GLASSMORPHISM UTILITIES ===== */
+.glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 41, 59, 0.7);
+}
+
+.glass-card {
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(30, 41, 59, 0.6);
+  border-radius: 16px;
+}
+
+/* ===== GLOW EFFECTS ===== */
+.glow-accent {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3), 0 0 60px rgba(34, 197, 94, 0.1);
+}
+
+.glow-accent-sm {
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+}
+
+.text-glow-accent {
+  text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+/* ===== SKELETON ANIMATION ===== */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(30,41,59,0.4) 25%, rgba(30,41,59,0.8) 50%, rgba(30,41,59,0.4) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* ===== PULSE RING ===== */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(34, 197, 94, 0.6);
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* ===== GRID BACKGROUND ===== */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(30, 41, 59, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 41, 59, 0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
