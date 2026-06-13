@@ -16,7 +16,6 @@ interface ComplaintFormProps {
 
 export default function ComplaintForm({ complaints, newMarker, onComplaintAdded, onMarkerClear }: ComplaintFormProps) {
   const [text, setText] = useState("");
-  const [apiKey, setApiKey] = useState("");
   const [loading, setLoading] = useState(false);
 
   const stats = {
@@ -49,7 +48,7 @@ export default function ComplaintForm({ complaints, newMarker, onComplaintAdded,
     });
 
     try {
-      const classification = await classifyComplaint(text, apiKey);
+      const classification = await classifyComplaint(text);
       const finalAddress = mapAddress || classification.address || "Локация не указана";
 
       const newComplaint: Complaint = {
@@ -103,20 +102,7 @@ export default function ComplaintForm({ complaints, newMarker, onComplaintAdded,
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div>
-            <label className="block text-sm font-medium mb-1 text-foreground/90">API Ключ (опционально)</label>
-            <div className="relative">
-              <Key className="absolute left-3 top-2.5 h-4 w-4 text-foreground/50" />
-              <input
-                type="password"
-                placeholder="Gemini API Key"
-                value={apiKey}
-                onChange={e => setApiKey(e.target.value)}
-                className="w-full bg-secondary/50 border border-secondary rounded-lg py-2 pl-9 pr-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 transition-all placeholder:text-foreground/30"
-              />
-            </div>
-            <p className="text-xs text-foreground/50 mt-1">Без ключа работает offline-классификация</p>
-          </div>
+
 
           <div>
             <label className="block text-sm font-medium mb-1 text-foreground/90">Суть проблемы</label>

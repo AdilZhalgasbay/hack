@@ -1,11 +1,12 @@
-export async function classifyComplaint(text: string, apiKey: string) {
-  if (!apiKey) {
+export async function classifyComplaint(text: string, apiKey?: string) {
+  const finalKey = apiKey || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+  if (!finalKey) {
     return fallbackClassification(text);
   }
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${finalKey}`,
       {
         method: "POST",
         headers: {
